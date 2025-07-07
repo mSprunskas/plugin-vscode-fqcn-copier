@@ -2,7 +2,13 @@
 
 All notable changes to the "FQCN Copier" extension will be documented in this file.
 
-## [1.0.0] - 2025-01-07
+## [1.1.0] - 2025-01-07
+
+### Changed
+- Moved item to different place in right-click menu
+- Updated development instructions
+
+## [1.0.0] - 2025-01-04
 
 ### Added
 - Initial release of FQCN Copier extension

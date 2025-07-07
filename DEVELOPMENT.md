@@ -98,7 +98,21 @@ The extension provides these configuration options:
 
 Access these via File → Preferences → Settings, then search for "FQCN".
 
+## Prerequisites
+
+- Visual Studio Code 1.74.0 or higher
+- Node.js 16.x or higher
+- npm or yarn package manager
+- `@vscode/vsce` (Visual Studio Code Extension Manager) for packaging
+
+Install vsce globally:
+```bash
+npm install -g @vscode/vsce
+```
+
 ## Development Commands
+
+### Local Development Build
 
 ```bash
 # Install dependencies
@@ -109,10 +123,79 @@ npm run compile
 
 # Watch for changes during development
 npm run watch
-
-# Package extension (requires Node.js 20+)
-npx @vscode/vsce package
 ```
+
+## Building .vsix File
+
+The extension can be packaged into a `.vsix` file for distribution using two methods:
+
+### Method 1: Local Build
+
+```bash
+# Install dependencies (if not already done)
+npm install
+
+# Compile the extension
+npm run compile
+
+# Package into .vsix file
+npm run package
+```
+
+This will create a `vscode-fqcn-copier-1.1.0.vsix` file in the project root.
+
+### Method 2: Docker Build (Recommended for Consistent Environment)
+
+The project includes a Dockerfile for creating a consistent build environment with Node.js 20 Alpine.
+
+#### Build the Docker image:
+```bash
+docker build -t vscode-fqcn-builder .
+```
+
+#### Run the container with project mounted:
+```bash
+docker run -itd --user root -v ./:/home/app/src --rm --name fqcn-builder vscode-fqcn-builder
+```
+
+#### Execute build commands inside the container:
+```bash
+# Enter the container
+docker exec -it fqcn-builder sh
+
+# Inside the container, run:
+npm install
+npm run compile
+npm run package
+
+# Exit the container
+exit
+```
+
+#### Alternative one-liner for Docker build:
+```bash
+docker run --rm -v ./:/home/app/src vscode-fqcn-builder sh -c "npm install && npm run compile && npm run package"
+```
+
+### Docker Development Environment
+
+The included Dockerfile provides:
+- **Node.js 20 Alpine**: Lightweight, consistent environment
+- **Non-root user**: Security best practices
+- **Volume mounting**: Live code editing while using containerized build tools
+
+Benefits of using Docker for building:
+- **Consistency**: Same Node.js version across different development machines
+- **Isolation**: Doesn't interfere with your local Node.js setup
+- **Reproducibility**: Ensures builds work the same way for all contributors
+
+### Build Output
+
+After successful packaging, you'll find:
+- `vscode-fqcn-copier-1.1.0.vsix` - The packaged extension file
+- `out/` directory - Compiled JavaScript files
+
+The `.vsix` file can be installed directly in VS Code or distributed to users.
 
 ## Project Structure
 

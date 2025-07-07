@@ -119,19 +119,6 @@ export class JavaScriptProvider extends BaseProvider {
 3. Press `F5` to open a new Extension Development Host window
 4. Test the extension in the new window
 
-## Building
-
-```bash
-# Install dependencies
-npm install
-
-# Compile TypeScript
-npm run compile
-
-# Watch for changes during development
-npm run watch
-```
-
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -141,6 +128,12 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 This extension is released under the MIT License.
 
 ## Changelog
+
+### 1.1.0
+- Improved context menu positioning: "Copy FQCN" now appears in the first group for better accessibility
+- Enhanced build documentation with Docker support
+- Added comprehensive .vsix packaging instructions
+- Updated development dependencies
 
 ### 1.0.0
 - Initial release
